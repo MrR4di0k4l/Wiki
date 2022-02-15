@@ -1,0 +1,45 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia
+{% endblock %}
+
+{% block body %}
+    		<h2>Wiki Pages</h2>
+		<div id="az_list" class="wiki-link-container">
+			<form id="alphabet_form" action="" method="POST">
+				{% csrf_token %}
+				<ul class="btn-group">
+					<div class="p-2">
+						{% for letter in alphabet_list  %}
+						<li class="link_{{letter}} mx-1" style="display: inline;">
+							<a class="link_anchor font-weight-bold text-primary" data-value={{letter}} href="#" style="font-size: 20px;">
+								{{letter}}
+							</a>
+						</li>
+						{% endfor %}
+						<input id="abc_input" type="hidden" name="letter" value="">
+						
+					</div>
+				</ul>
+			</form>
+		</div>
+    <h1>All Pages</h1>
+    <h5>Available -
+        <span class="badge badge-secondary">{{entries|length}}</s>
+    </h5>
+    <ul>
+        {% for entry in entries %}
+            <li>
+                <a href="{% url 'wiki' entry %}"> 
+                    {{ entry }} 
+                </a>
+            </li>
+            
+        {% empty %}
+		<br>
+            <h2 class="text-secondary text-centered "> No found</h2>
+        {% endfor %}
+    </ul>
+	
+{% endblock %}

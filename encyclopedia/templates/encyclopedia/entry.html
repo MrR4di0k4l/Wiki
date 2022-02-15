@@ -1,0 +1,38 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %} 
+	Encyclopedia 
+{% endblock %}
+
+{% block body %}
+
+<section>
+	<ul class="d-flex ml-3 pt-lg-5 pt-md-2">
+		<a class="link" href="{% url 'index' %}">
+			<button class="mx-2 btn px-4 btn-outline-success">
+				Home
+			</button>
+		</a>
+		
+		<a class="link desk-ct-after" href="{% url 'create_update' title %}">
+			<button class="btn btn-outline-warning">
+				Edit
+			</button>
+		</a>
+		{% with title as entry_name  %}
+		{% url 'delete' title=entry_name deletion='delete' as delete %}
+		<a class="link desk-ct-after" href="{{delete}}">
+			<button class="mx-2 btn px-4 btn btn-outline-danger">Delete</button>
+		</a>
+		{% endwith %}
+	</ul>
+	<div id="entry_navbar" class="align-items-center d-flex ">
+	</div>
+	<div class="" style="overflow:auto">
+		<hr class="my-n2">
+		<div class="my-3 py-3">
+			{{ entry|safe }}
+		</div>
+	</div>
+</section>
+{% endblock body %}
